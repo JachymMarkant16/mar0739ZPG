@@ -26,6 +26,8 @@ private:
 	Camera* camera;
 	std::vector<ModelObject> objects;
 	bool mouseDown = false;
+	glm::mat4 projection;
+	int controlledObj = 1;
 	static void error_callback(int error, const char* description) { fputs(description, stderr); }
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
@@ -41,12 +43,22 @@ private:
 			core->camera->moveLeft();
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 			core->camera->moveRight();
+		if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+			core->controlledObj = 1;
+		if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS)
+			core->controlledObj = 2;
+		if(glfwGetKey(window, GLFW_KEY_KP_4) == GLFW_PRESS)
+			core->objects[core->controlledObj].MoveRight(-1);
+		if (glfwGetKey(window, GLFW_KEY_KP_6) == GLFW_PRESS)
+			core->objects[core->controlledObj].MoveRight(1);
 	}
 	static void window_focus_callback(GLFWwindow* window, int focused) { printf("window_focus_callback \n"); }
 	static void window_iconify_callback(GLFWwindow* window, int iconified) { printf("window_iconify_callback \n"); }
 	static void window_size_callback(GLFWwindow* window, int width, int height) {
 		printf("resize %d, %d \n", width, height);
 		glViewport(0, 0, width, height);
+		Core* core = core->getInstance();
+		core->projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 	}
 	static void cursor_callback(GLFWwindow* window, double x, double y) {
 		Core* core = core->getInstance();

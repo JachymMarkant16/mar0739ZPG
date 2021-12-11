@@ -1,3 +1,4 @@
+#pragma once
 //Include GLEW
 #include <GL/glew.h>
 //Include GLFW
@@ -20,17 +21,27 @@
 #include "ShaderProgram.h"
 #include "ShaderProgramFactory.h"
 #include "ShaderProgramType.h"
-#include "Object.h"
-#pragma once
-class ModelObject : public Object
+class Object
 {
-private:
-	bool isSkybox;
-	float* points;
-
 public:
-	ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, bool isSkybox = false);
-	ModelObject();
-	void DrawObject(glm::mat4 view, glm::mat4 projection);
+	struct Vertex
+	{
+		float Position[3];
+		float Normal[3];
+		float Texture[2];
+		float Tangent[3];
+	};
+	virtual void DrawObject(glm::mat4 view, glm::mat4 projection) {};
+	void MoveRight(int size);
+protected:
+    void InitVars(ShaderProgramType shaderProgram);
+    void InitVAO();
+    void InitVBO(float* points, int sizeOfPoints);
+    void SetVertexAttribs(ShaderProgramType shaderProgram);
+    GLuint VAO = 0;
+    GLuint VBO = 0;
+    int sizeOfPoints;
+	ShaderProgram* shaderProgram;
+	glm::mat4 modelMatrix;
 };
 

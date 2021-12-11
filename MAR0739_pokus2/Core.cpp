@@ -19,6 +19,7 @@ void Core::setData(int width, int height, const char* windowName) {
 
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
+    projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
     // Sets the key callback
     glfwSetKeyCallback(window, key_callback);
@@ -54,22 +55,33 @@ void Core::initCore() {
 
 void Core::start() {
     glActiveTexture(GL_TEXTURE0);
-    GLuint textureID = SOIL_load_OGL_texture("F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\box.png", SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    while (!glfwWindowShouldClose(window)) {
+    GLuint textureIDCube = SOIL_load_OGL_cubemap(
+        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\posx.jpg",
+        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\negx.jpg",
+        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\posy.jpg",
+        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\negy.jpg",
+        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\posz.jpg",
+        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\negz.jpg",
+        SOIL_LOAD_RGB,
+        SOIL_CREATE_NEW_ID,
+        SOIL_FLAG_MIPMAPS
+        );
 
-        glm::mat4 model = glm::mat4(1.0f);
-        glm::mat4 projection;
-        projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureIDCube);
+
+    glActiveTexture(GL_TEXTURE1);
+    GLuint textureIDplain = SOIL_load_OGL_texture("F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\box.png", SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+    glBindTexture(GL_TEXTURE_2D, textureIDplain);
+    while (!glfwWindowShouldClose(window)) {
         glEnable(GL_DEPTH_TEST);
 
         // clear color and depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
+        
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         for (ModelObject o : objects)
-            o.DrawObject(model, this->camera->getView(), projection);
+            o.DrawObject(this->camera->getView(), projection);
         // update other events like input handling
         glfwPollEvents();
         // put the stuff we�ve been drawing onto the display

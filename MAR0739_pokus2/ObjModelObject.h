@@ -1,3 +1,4 @@
+#pragma once
 //Include GLEW
 #include <GL/glew.h>
 //Include GLFW
@@ -21,16 +22,19 @@
 #include "ShaderProgramFactory.h"
 #include "ShaderProgramType.h"
 #include "Object.h"
-#pragma once
-class ModelObject : public Object
+#include "Texture2D.h"
+class ObjModelObject : public Object
 {
-private:
-	bool isSkybox;
-	float* points;
-
 public:
-	ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, bool isSkybox = false);
-	ModelObject();
-	void DrawObject(glm::mat4 view, glm::mat4 projection);
-};
+	ObjModelObject(const char* filename);
+	Texture2D texture;
 
+private:
+	Vertex* points;
+	GLuint IBO;
+	unsigned int* indices;
+	int num_of_faces;
+	unsigned int indices_count;
+	void getMaterialFromObj(aiScene* scene);
+	void getMeshFromObj(const aiScene* scene);
+};

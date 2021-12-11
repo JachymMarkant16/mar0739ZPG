@@ -86,15 +86,15 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>F:\Škola\ZPG\libraries\soil\include;F:\Škola\ZPG\libraries\glm-master;F:\Škola\ZPG\libraries\glfw-3.3.5.bin.WIN32\include;F:\Škola\ZPG\libraries\glew-2.1.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\libraries\soil\include;..\..\libraries\glm-master;..\..\libraries\glfw-3.3.5.bin.WIN32\include;..\..\libraries\glew-2.1.0\include;..\..\libraries\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>F:\Škola\ZPG\libraries\soil\lib;..\..\libraries\glfw-3.3.5.bin.WIN32\lib-vc2019;..\..\libraries\glew-2.1.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\libraries\soil\lib;..\..\libraries\glfw-3.3.5.bin.WIN32\lib-vc2019;..\..\libraries\glew-2.1.0\lib\Release\Win32;..\..\libraries\assimp\lib\Win32\v141\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;SOIL.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -146,16 +146,27 @@
     <ClCompile Include="MAR0739_pokus2.cpp" />
     <ClCompile Include="ModelObject.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjModelObject.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="ShaderProgramFactory.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="box.h" />
+    <ClInclude Include="box2.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ModelObject.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="gift.h" />
+    <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjModelObject.h" />
     <ClInclude Include="plain.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="ShaderProgramFactory.h" />
+    <ClInclude Include="ShaderProgramType.h" />
+    <ClInclude Include="skybox.h" />
+    <ClInclude Include="Texture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="2dFragment.txt" />
@@ -164,6 +175,8 @@
     <Text Include="basicVertex.txt" />
     <Text Include="colorFragment.txt" />
     <Text Include="colorVertex.txt" />
+    <Text Include="skyboxVertex.txt" />
+    <Text Include="skyboxFragment.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

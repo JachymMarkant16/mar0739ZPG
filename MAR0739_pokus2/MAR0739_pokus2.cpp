@@ -9,7 +9,8 @@
 #include "gift.h"
 #include "plain.h"
 #include "box.h"
-
+#include "box2.h"
+#include "skybox.h"
 
 float points[] = {
     // positions         // colors
@@ -30,8 +31,11 @@ int main()
     core->setData(800, 600, "ZPG");
     core->initCore();
     //create and compile shaders
-    ShaderProgram shaderProgram("2dVertex.txt", "2dFragment.txt");
-    ModelObject triangle(box, sizeof(box), shaderProgram);
-    core->addObject(triangle);
+    
+    ModelObject skybox(box, sizeof(box), ShaderProgramType::SkyBox, true);
+    ModelObject boxik(box, sizeof(box), ShaderProgramType::TwoD);
+    core->addObject(skybox);
+    core->addObject(boxik);
+    core->addObject(boxik);
     core->start();
 }

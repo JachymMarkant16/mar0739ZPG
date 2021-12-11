@@ -4,12 +4,13 @@ Camera::Camera() {
     yaw = -90.0f;
     pitch = 0.0f;
     sensitivity = 0.3f;
+    count = 0;
 }
 glm::mat4 Camera::getView() {
     float currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
-    cameraSpeed = 7.5f * deltaTime;
+    cameraSpeed = 0.25f;
     view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
     return view;
 }
@@ -21,6 +22,8 @@ void Camera::moveBack() {
     cameraPos -= cameraSpeed * cameraFront;
 }
 void Camera::moveLeft() {
+    count++;
+    printf(" count : %d\n", count);
     cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 void Camera::moveRight() {

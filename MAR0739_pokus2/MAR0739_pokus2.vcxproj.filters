@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Models">
+      <UniqueIdentifier>{f967e5dd-bdad-476e-a80a-f7c08c430032}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ShaderFiles">
+      <UniqueIdentifier>{fb25cfd7-47b5-431c-8359-481db18c139a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ModelObjects">
+      <UniqueIdentifier>{a377c9db-a955-4e7b-94b8-94cd91f2246e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ModelObjects">
+      <UniqueIdentifier>{4201230f-736d-4410-b915-ab36659d7c15}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAR0739_pokus2.cpp">
@@ -21,13 +33,25 @@
     <ClCompile Include="ShaderProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ModelObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderProgramFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelObject.cpp">
+      <Filter>Source Files\ModelObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files\ModelObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjModelObject.cpp">
+      <Filter>Source Files\ModelObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,31 +59,70 @@
     <ClInclude Include="ShaderProgram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ModelObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Core.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gift.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="plain.h">
+    <ClInclude Include="ShaderProgramType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderProgramFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="box.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="box2.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="gift.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="plain.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelObject.h">
+      <Filter>Header Files\ModelObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files\ModelObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjModelObject.h">
+      <Filter>Header Files\ModelObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="basicVertex.txt" />
-    <Text Include="basicFragment.txt" />
-    <Text Include="colorVertex.txt" />
-    <Text Include="colorFragment.txt" />
-    <Text Include="2dVertex.txt" />
-    <Text Include="2dFragment.txt" />
+    <Text Include="skyboxVertex.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="skyboxFragment.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="colorVertex.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="colorFragment.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="basicVertex.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="basicFragment.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="2dVertex.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="2dFragment.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
   </ItemGroup>
 </Project>

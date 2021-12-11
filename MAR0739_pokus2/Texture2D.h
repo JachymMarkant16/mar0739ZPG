@@ -1,3 +1,5 @@
+#pragma once
+#pragma once
 //Include GLEW
 #include <GL/glew.h>
 //Include GLFW
@@ -15,22 +17,22 @@
 #include<assimp/scene.h>// aiSceneoutputdata structure
 #include<assimp/postprocess.h>// Post processingflags
 
+#include <SOIL.h>
 #include "ShaderProgram.h"
 #include <iostream>
 #include "ShaderProgram.h"
 #include "ShaderProgramFactory.h"
 #include "ShaderProgramType.h"
-#include "Object.h"
-#pragma once
-class ModelObject : public Object
+class Texture2D
 {
 private:
-	bool isSkybox;
-	float* points;
-
+    GLuint textureID;
+    GLuint textureUnitID;
 public:
-	ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, bool isSkybox = false);
-	ModelObject();
-	void DrawObject(glm::mat4 view, glm::mat4 projection);
+    Texture2D();
+    int get_texture_unit_ID();
+    bool load_texture(const char* filename);
+    void bind_texture();
+    void unbind_texture();
 };
 
