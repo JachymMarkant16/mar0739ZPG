@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 //Include GLEW
 #include <GL/glew.h>
 //Include GLFW
@@ -24,16 +25,13 @@
 #include "Object.h"
 #include "TextureController.h"
 #include <string>
-class ModelObject : public Object
+class Light
 {
-private:
-	bool isSkybox;
-	float* points;
-	int textureSpace;
-
+protected:
+	glm::vec3 lightColor;
 public:
-	ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, std::string textureName, bool isSkybox = false);
-	ModelObject();
-	void DrawObject(glm::mat4 view, glm::mat4 projection);
+	Light(glm::vec3 color_of_light);
+	void setLightColor(glm::vec3 color_of_light);
+	virtual void update();
 };
 

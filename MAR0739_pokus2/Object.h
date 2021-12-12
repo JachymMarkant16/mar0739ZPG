@@ -31,12 +31,14 @@ public:
 		float Texture[2];
 		float Tangent[3];
 	};
-	virtual void DrawObject(glm::mat4 view, glm::mat4 projection) {};
+	virtual void DrawObject(glm::mat4 view, glm::mat4 projection) = 0;
 	void MoveRight(int size);
+	void Scale(int size);
 protected:
-    void InitVars(ShaderProgramType shaderProgram);
+    void InitVars(ShaderProgramType shaderProgram, glm::mat4 defaultMat = glm::mat4(1.0f));
     void InitVAO();
     void InitVBO(float* points, int sizeOfPoints);
+	void InitVBO(Vertex* points, int sizeOfPoints);
     void SetVertexAttribs(ShaderProgramType shaderProgram);
     GLuint VAO = 0;
     GLuint VBO = 0;

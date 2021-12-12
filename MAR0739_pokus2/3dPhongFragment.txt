@@ -1,0 +1,76 @@
+#version 330
+
+#define MAX_LIGHTS 3
+struct Light{
+	vec3 position, direction, color_of_light;
+	float cut_off;
+	float type;
+	float attenuation_constant, attenuation_linear, attenuation_quadratic;
+};
+
+out vec4 frag_colour;
+in vec3 ex_WorldPosition;
+in vec3 ex_WorldNormal;
+in vec2 ex_UV;
+
+//uniform vec3 lightPosition;
+uniform Light lights[MAX_LIGHTS];
+uniform float numOfLights;
+
+uniform vec3 eyePosition;
+uniform sampler2D textureUnitID;
+void main () {
+	vec3 eyeVector = normalize(eyePosition - ex_WorldPosition.xyz);
+	vec4 mirror = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	vec4 diffuse = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	for (int index = 0; index < numOfLights; index++)
+	{
+		vec3 lightVector;
+		float distance = 1.0f;
+		float attenuation = 1.0f;
+		if(lights[index].type == 0.0f)
+		{
+			lightVector = normalize(lights[index].position - ex_WorldPosition.xyz);	
+			distance = length(lights[index].position - ex_WorldPosition.xyz);	
+			attenuation = 1.0 / (lights[index].attenuation_constant + lights[index].attenuation_linear * distance + lights[index].attenuation_quadratic * (distance * distance));
+	
+		}
+		else if(lights[index].type == 1.0f)
+			lightVector = lights[index].direction;
+		else if(lights[index].type == 2.0f)
+		{
+			lightVector = normalize(lights[index].position - ex_WorldPosition.xyz);
+		}
+			
+
+		float dot_product_diffuse = 0.0f;
+		vec3 R;
+		float dot_product_mirror = 0.0f;		
+	
+		if (lights[index].type == 2.0f && dot(lightVector, normalize(-lights[index].direction)) > lights[index].cut_off)
+		{
+			dot_product_diffuse = max(dot(lightVector, normalize(ex_WorldNormal.xyz) ), 0.0);
+			R = normalize(reflect( -lightVector, normalize(ex_WorldNormal.xyz) ));
+			dot_product_mirror = max(dot(eyeVector, R), 0.0f);
+			distance = length(lights[index].position - ex_WorldPosition.xyz);	
+			attenuation = 1.0 / (lights[index].attenuation_constant + lights[index].attenuation_linear * distance + lights[index].attenuation_quadratic * (distance * distance));
+
+		}	
+		else if (lights[index].type != 2.0f)
+		{
+			dot_product_diffuse = max(dot(lightVector, normalize(ex_WorldNormal.xyz) ), 0.0);
+			R = normalize(reflect( -lightVector, normalize(ex_WorldNormal.xyz) ));
+			dot_product_mirror = max(dot(eyeVector, R), 0.0f);
+		}
+		
+		if(max(dot(lightVector, normalize(ex_WorldNormal.xyz)),0) > 0 )
+			mirror = mirror + (pow(dot_product_mirror, 35) * vec4(lights[index].color_of_light, 1.0f)) * attenuation;
+		diffuse = diffuse + (dot_product_diffuse * texture(textureUnitID, ex_UV)) * attenuation;
+		
+		//diffuse = diffuse * attenuation;
+		//mirror = mirror * attenuation;
+	}
+	vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);
+	frag_colour = ambient + diffuse + mirror;
+	//frag_colour = vec4(ex_UV.x, ex_UV.y, 0.0f, 1.0f);
+}

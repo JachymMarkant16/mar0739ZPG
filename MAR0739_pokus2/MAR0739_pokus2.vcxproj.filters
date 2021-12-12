@@ -25,6 +25,12 @@
     <Filter Include="Source Files\ModelObjects">
       <UniqueIdentifier>{4201230f-736d-4410-b915-ab36659d7c15}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Lights">
+      <UniqueIdentifier>{882c611e-0ce7-4fd4-bcce-8b5fe4d1b6a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lights">
+      <UniqueIdentifier>{07bddf62-078c-48a3-ad18-760f5189e54a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MAR0739_pokus2.cpp">
@@ -51,7 +57,7 @@
     <ClCompile Include="ObjModelObject.cpp">
       <Filter>Source Files\ModelObjects</Filter>
     </ClCompile>
-    <ClCompile Include="Texture2D.cpp">
+    <ClCompile Include="TextureController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,8 +101,11 @@
     <ClInclude Include="ObjModelObject.h">
       <Filter>Header Files\ModelObjects</Filter>
     </ClInclude>
-    <ClInclude Include="Texture2D.h">
+    <ClInclude Include="TextureController.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightType.h">
+      <Filter>Header Files\Lights</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,6 +131,18 @@
       <Filter>ShaderFiles</Filter>
     </Text>
     <Text Include="2dFragment.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="3dFragment.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="3dvertex.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="3dPhongVertex.txt">
+      <Filter>ShaderFiles</Filter>
+    </Text>
+    <Text Include="3dPhongFragment.txt">
       <Filter>ShaderFiles</Filter>
     </Text>
   </ItemGroup>

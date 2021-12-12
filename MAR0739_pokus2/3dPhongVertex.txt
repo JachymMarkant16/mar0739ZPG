@@ -1,0 +1,16 @@
+#version 330
+layout(location=0) in vec3 position;
+layout(location=1) in vec3 normal;
+layout(location=2) in vec2 uv;
+out vec3 ex_WorldNormal;
+out vec3 ex_WorldPosition;
+out vec2 ex_UV;
+uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
+void main () {
+gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vec4(position, 1.0f);
+ex_WorldNormal = (transpose(inverse((modelMatrix))) * vec4(normal, 1.0f)).xyz;
+ex_WorldPosition = ((modelMatrix) * vec4(position, 1.0f)).xyz;
+ex_UV = uv;
+}

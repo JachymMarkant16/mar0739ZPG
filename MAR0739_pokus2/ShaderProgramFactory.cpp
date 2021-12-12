@@ -15,5 +15,8 @@ ShaderProgram* ShaderProgramFactory::createShaderProgram(ShaderProgramType type)
 	case ShaderProgramType::SkyBox:
 		return new ShaderProgram("skyboxVertex.txt", "skyboxFragment.txt");
 		break;
+	case ShaderProgramType::ThreeD:
+		return new ShaderProgram("3dVertex.txt", "3dFragment.txt");
+		break;
 	}
 }

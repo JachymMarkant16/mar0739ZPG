@@ -88,12 +88,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\libraries\soil\include;..\..\libraries\glm-master;..\..\libraries\glfw-3.3.5.bin.WIN32\include;..\..\libraries\glew-2.1.0\include;..\..\libraries\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Skola\ZPG\libraries\soil\include;C:\Skola\ZPG\libraries\glm-master;C:\Skola\ZPG\libraries\glfw-3.3.6.bin.WIN32\include;C:\Skola\ZPG\libraries\glew-2.1.0\include;C:\Skola\ZPG\libraries\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\libraries\soil\lib;..\..\libraries\glfw-3.3.5.bin.WIN32\lib-vc2019;..\..\libraries\glew-2.1.0\lib\Release\Win32;..\..\libraries\assimp\lib\Win32\v141\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Skola\ZPG\libraries\soil\lib;C:\Skola\ZPG\libraries\glfw-3.3.6.bin.WIN32\lib-vc2019;C:\Skola\ZPG\libraries\glew-2.1.0\lib\Release\Win32;C:\Skola\ZPG\libraries\assimp\lib\Win32\v141\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;SOIL.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -150,12 +150,13 @@
     <ClCompile Include="ObjModelObject.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="ShaderProgramFactory.cpp" />
-    <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="TextureController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="box.h" />
     <ClInclude Include="box2.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="LightType.h" />
     <ClInclude Include="ModelObject.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="gift.h" />
@@ -166,11 +167,15 @@
     <ClInclude Include="ShaderProgramFactory.h" />
     <ClInclude Include="ShaderProgramType.h" />
     <ClInclude Include="skybox.h" />
-    <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="TextureController.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="2dFragment.txt" />
     <Text Include="2dVertex.txt" />
+    <Text Include="3dFragment.txt" />
+    <Text Include="3dPhongFragment.txt" />
+    <Text Include="3dPhongVertex.txt" />
+    <Text Include="3dvertex.txt" />
     <Text Include="basicFragment.txt" />
     <Text Include="basicVertex.txt" />
     <Text Include="colorFragment.txt" />

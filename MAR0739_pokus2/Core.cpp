@@ -10,12 +10,14 @@ Core::Core() {
 }
 
 void Core::setData(int width, int height, const char* windowName) {
+    this->windowW = width;
+    this->windowH = height;
     window = glfwCreateWindow(width, height, windowName, NULL, NULL);
     if (!window) {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
@@ -54,24 +56,7 @@ void Core::initCore() {
 }
 
 void Core::start() {
-    glActiveTexture(GL_TEXTURE0);
-    GLuint textureIDCube = SOIL_load_OGL_cubemap(
-        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\posx.jpg",
-        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\negx.jpg",
-        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\posy.jpg",
-        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\negy.jpg",
-        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\posz.jpg",
-        "F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\negz.jpg",
-        SOIL_LOAD_RGB,
-        SOIL_CREATE_NEW_ID,
-        SOIL_FLAG_MIPMAPS
-        );
-
-    glBindTexture(GL_TEXTURE_CUBE_MAP, textureIDCube);
-
-    glActiveTexture(GL_TEXTURE1);
-    GLuint textureIDplain = SOIL_load_OGL_texture("F:\\Škola\\ZPG\\MAR0739_pokus2\\Textures\\box.png", SOIL_LOAD_RGBA, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-    glBindTexture(GL_TEXTURE_2D, textureIDplain);
+    objects[1]->Scale(100);
     while (!glfwWindowShouldClose(window)) {
         glEnable(GL_DEPTH_TEST);
 
@@ -80,8 +65,8 @@ void Core::start() {
 
         
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        for (ModelObject o : objects)
-            o.DrawObject(this->camera->getView(), projection);
+        for (Object* o : objects)
+            o->DrawObject(this->camera->getView(), projection);
         // update other events like input handling
         glfwPollEvents();
         // put the stuff we�ve been drawing onto the display
@@ -93,6 +78,6 @@ void Core::start() {
     exit(EXIT_SUCCESS);
 }
 
-void Core::addObject(ModelObject object) {
+void Core::addObject(Object *object) {
     objects.push_back(object);
 }

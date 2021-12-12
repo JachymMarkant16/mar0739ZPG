@@ -4,5 +4,6 @@ enum ShaderProgramType {
 	TwoD,
 	Color,
 	SkyBox,
-	Obj
+	Obj,
+	ThreeD
 };

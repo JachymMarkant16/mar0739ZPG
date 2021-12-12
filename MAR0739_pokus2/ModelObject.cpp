@@ -1,11 +1,13 @@
 #include "ModelObject.h"
 
-ModelObject::ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, bool modelIsSkybox) {
+ModelObject::ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, std::string textureName, bool modelIsSkybox) {
     this->isSkybox = modelIsSkybox;
     InitVars(shaderProgram);
     InitVBO(points, sizeOfPoints);
     InitVAO();
     SetVertexAttribs(shaderProgram);
+    TextureController* texController = texController->getInstance();
+    textureSpace = texController->getTextureByName(textureName);
 }
 
 void ModelObject::DrawObject(glm::mat4 view, glm::mat4 projection) {
@@ -30,11 +32,11 @@ void ModelObject::DrawObject(glm::mat4 view, glm::mat4 projection) {
 
     if (this->isSkybox) {
         GLint uniformID = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "skybox");
-        glUniform1i(uniformID, 0);
+        glUniform1i(uniformID, this->textureSpace);
     }
     else {
         GLint uniformID = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "textureUnitID");
-        glUniform1i(uniformID, 1);
+        glUniform1i(uniformID, this->textureSpace);
     }
 
     // draw triangles

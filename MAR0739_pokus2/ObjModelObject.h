@@ -22,14 +22,18 @@
 #include "ShaderProgramFactory.h"
 #include "ShaderProgramType.h"
 #include "Object.h"
-#include "Texture2D.h"
+#include "TextureController.h"
 class ObjModelObject : public Object
 {
 public:
-	ObjModelObject(const char* filename);
-	Texture2D texture;
+	ObjModelObject(const char* filename, ShaderProgramType shaderProgram, std::string textureName, bool loop = false, glm::mat4 defaultMat = glm::mat4(1.0f));
+	void DrawObject(glm::mat4 view, glm::mat4 projection);
 
 private:
+	void loopModel();
+	bool loop;
+	float t = 0.5f;
+	float delta = 0.01f;
 	Vertex* points;
 	GLuint IBO;
 	unsigned int* indices;
@@ -37,4 +41,15 @@ private:
 	unsigned int indices_count;
 	void getMaterialFromObj(aiScene* scene);
 	void getMeshFromObj(const aiScene* scene);
+	void InitIBO();
+	int textureSpace; 
+	glm::mat4 M = glm::mat4(1.0f);
+	glm::mat4 A = glm::mat4(glm::vec4(-1.0, 3.0, -3.0, 1.0),
+		glm::vec4(3.0, -6.0, 3.0, 0),
+		glm::vec4(-3.0, 3.0, 0, 0),
+		glm::vec4(1, 0, 0, 0));
+	glm::mat4x3 B = glm::mat4x3(glm::vec3(-1, 0, 0),
+		glm::vec3(0, 1, 0),
+		glm::vec3(0, -1, 0),
+		glm::vec3(1, 0, 0));
 };

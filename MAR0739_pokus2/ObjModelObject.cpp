@@ -1,5 +1,6 @@
 #include "ObjModelObject.h"
-ObjModelObject::ObjModelObject(const char* filename) {
+ObjModelObject::ObjModelObject(const char* filename, ShaderProgramType shaderProgram, std::string textureName, bool loop, glm::mat4 defaultMat) {
+    this->loop = loop;
     int indicesCount = 0;
     Assimp::Importer importer;
     unsigned int importOptions = aiProcess_Triangulate
@@ -12,7 +13,13 @@ ObjModelObject::ObjModelObject(const char* filename) {
 
     const aiScene* scene = importer.ReadFile(filename, importOptions);
     getMeshFromObj(scene);
-
+    InitVars(shaderProgram, defaultMat);
+    InitVBO(this->points, this->sizeOfPoints);
+    InitVAO();
+    InitIBO();
+    SetVertexAttribs(shaderProgram);
+    TextureController* texController = texController->getInstance();
+    textureSpace = texController->getTextureByName(textureName);
 }
 
 void ObjModelObject::getMaterialFromObj(aiScene* scene) {
@@ -69,7 +76,6 @@ void ObjModelObject::getMeshFromObj(const aiScene* scene) {
             }
 
         }
-        //fclose(fp);
 
         unsigned int* pIndices = nullptr;
 
@@ -90,4 +96,42 @@ void ObjModelObject::getMeshFromObj(const aiScene* scene) {
         this->num_of_faces = mesh->mNumFaces;
         this->indices = pIndices;
     }
+}
+
+void ObjModelObject::DrawObject(glm::mat4 view, glm::mat4 projection) {
+    if (loop) {
+        loopModel();
+    }
+    glUseProgram(this->shaderProgram->getShaderProgram());
+    glBindVertexArray(this->VAO);
+
+
+    int modelLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(this->modelMatrix));
+    int viewLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "view");
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+    int projectionLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "projection");
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+    GLint uniformID = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "textureUnitID");
+    glUniform1i(uniformID, this->textureSpace);
+
+    // draw triangles
+    glDrawElements(GL_TRIANGLES, this->indices_count, GL_UNSIGNED_INT, NULL); //mode,first,count
+
+    glBindVertexArray(0);
+}
+
+void ObjModelObject::InitIBO() {
+    glGenBuffers(1, &IBO); 
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO); 
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->num_of_faces * 3, this->indices, GL_STATIC_DRAW);
+}
+
+void ObjModelObject::loopModel() {
+    glm::vec4 parameters = glm::vec4(t * t * t, t * t, t, 1.0f);
+    glm::vec3 p = parameters * A * glm::transpose(B);
+    this->modelMatrix = glm::translate(glm::mat4(1.0f), p);
+    this->modelMatrix = glm::scale(this->modelMatrix, glm::vec3(0.015));
+    if (t >= 1.0f || t <= 0.0f) delta *= -1;
+    t += delta;
 }
