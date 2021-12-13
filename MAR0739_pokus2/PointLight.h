@@ -1,17 +1,24 @@
 #pragma once
 #include "Light.h"
-class PointLight :
-    public Light
+#include <stdlib.h>
+#include <stdio.h>
+#include <vector>
+#include <sstream>
+#include <string.h>
+
+class PointLight : public Light
 {
-protected:
-    glm::vec3 position;
-    float attenuation_constant;
-    float attenuation_linear;
-    float attenuation_quadratic; 
+private:
+	glm::vec3 position;
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+	float constant;
+	float linear;
+	float quadratic;
+	int order;
 public:
-        PointLight(glm::vec3 color_of_light, glm::vec3 position, float c, float l, float q);
-        ~PointLight();
-        void set_position(glm::vec3 position);
-        virtual void update() override;
+	PointLight(glm::vec3 pos, glm::vec3 amb, glm::vec3 diff, glm::vec3 spec, float constant, float linear, float quadratic, int order);
+	void setLightValuesToShader(int shaderProgram, Camera* camera);
 };
 

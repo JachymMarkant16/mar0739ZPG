@@ -5,5 +5,6 @@ enum ShaderProgramType {
 	Color,
 	SkyBox,
 	Obj,
-	ThreeD
+	ThreeD,
+	ThreeDPhong
 };

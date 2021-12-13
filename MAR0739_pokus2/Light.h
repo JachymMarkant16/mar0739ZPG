@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 //Include GLEW
 #include <GL/glew.h>
 //Include GLFW
@@ -24,14 +23,15 @@
 #include "ShaderProgramType.h"
 #include "Object.h"
 #include "TextureController.h"
-#include <string>
+#include "LightType.h"
 class Light
 {
 protected:
-	glm::vec3 lightColor;
-public:
-	Light(glm::vec3 color_of_light);
-	void setLightColor(glm::vec3 color_of_light);
-	virtual void update();
-};
+	glm::vec3 position;
+	float shininess;
 
+public:
+	Light() {};
+	Light(glm::vec3 pos, float shininess);
+	virtual void setLightValuesToShader(int shaderProgram, Camera* camera);
+};

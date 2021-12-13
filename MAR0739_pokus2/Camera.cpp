@@ -60,3 +60,9 @@ void Camera::lookAround(float x, float y) {
     direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
     cameraFront = glm::normalize(direction);
 }
+glm::vec3 Camera::getCameraPos() {
+    return this->cameraPos;
+}
+glm::vec3 Camera::getCameraFront() {
+    return this->cameraFront;
+}

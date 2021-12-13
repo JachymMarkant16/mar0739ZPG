@@ -24,16 +24,21 @@
 #include "Object.h"
 #include "TextureController.h"
 #include <string>
-class ModelObject : public Object
+#include "LightType.h"
+#include "Light.h"
+class SpotLight : public Light
 {
 private:
-	bool isSkybox;
-	float* points;
-	int textureSpace;
-
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+	float constant;
+	float linear;
+	float quadratic;
+	float cutOff;
+	float outerCutOff;
 public:
-	ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, std::string textureName, bool isSkybox = false);
-	ModelObject();
-	void DrawObject(Camera* camera, glm::mat4 projection);
+	SpotLight(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec, float constant, float linear, float quadratic, float cutOff, float outerCutOff);
+	void setLightValuesToShader(int shaderProgram, Camera* camera);
 };
 

@@ -56,7 +56,7 @@ void Core::initCore() {
 }
 
 void Core::start() {
-    objects[1]->Scale(100);
+    //objects[1]->Scale(100);
     while (!glfwWindowShouldClose(window)) {
         glEnable(GL_DEPTH_TEST);
 
@@ -66,7 +66,7 @@ void Core::start() {
         
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         for (Object* o : objects)
-            o->DrawObject(this->camera->getView(), projection);
+            o->DrawObject(this->camera, projection);
         // update other events like input handling
         glfwPollEvents();
         // put the stuff we�ve been drawing onto the display

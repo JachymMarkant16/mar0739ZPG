@@ -15,6 +15,7 @@ void Object::SetVertexAttribs(ShaderProgramType shaderProgram) {
         glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
         break;
     case ShaderProgramType::ThreeD:
+    case ShaderProgramType::ThreeDPhong:
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(0));
         glEnableVertexAttribArray(1);

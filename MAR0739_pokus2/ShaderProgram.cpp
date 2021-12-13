@@ -80,7 +80,7 @@ void ShaderProgram::createAndCompileShaders(const char* vertexShader, const char
     if (!success)
     {
         glGetShaderInfoLog(this->fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
     glDeleteShader(this->vertexShader);

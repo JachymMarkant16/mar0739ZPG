@@ -18,5 +18,8 @@ ShaderProgram* ShaderProgramFactory::createShaderProgram(ShaderProgramType type)
 	case ShaderProgramType::ThreeD:
 		return new ShaderProgram("3dVertex.txt", "3dFragment.txt");
 		break;
+	case ShaderProgramType::ThreeDPhong:
+		return new ShaderProgram("3dPhongVertex.txt", "3dPhongFragment.txt");
+		break;
 	}
 }

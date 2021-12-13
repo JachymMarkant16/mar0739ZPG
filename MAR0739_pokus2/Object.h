@@ -21,6 +21,7 @@
 #include "ShaderProgram.h"
 #include "ShaderProgramFactory.h"
 #include "ShaderProgramType.h"
+#include "Camera.h"
 class Object
 {
 public:
@@ -31,7 +32,7 @@ public:
 		float Texture[2];
 		float Tangent[3];
 	};
-	virtual void DrawObject(glm::mat4 view, glm::mat4 projection) = 0;
+	virtual void DrawObject(Camera* camera, glm::mat4 projection) = 0;
 	void MoveRight(int size);
 	void Scale(int size);
 protected:

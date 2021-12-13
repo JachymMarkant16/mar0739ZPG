@@ -19,6 +19,7 @@ void TextureController::loadNewTexture(ShaderProgramType shaderType, std::string
         glBindTexture(GL_TEXTURE_CUBE_MAP, textureId);
 		break;
 	case ShaderProgramType::TwoD:
+    case ShaderProgramType::ThreeDPhong:
     case ShaderProgramType::ThreeD:
 		glActiveTexture(availableTexture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

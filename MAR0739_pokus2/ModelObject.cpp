@@ -10,7 +10,7 @@ ModelObject::ModelObject(float* points, int sizeOfPoints, ShaderProgramType shad
     textureSpace = texController->getTextureByName(textureName);
 }
 
-void ModelObject::DrawObject(glm::mat4 view, glm::mat4 projection) {
+void ModelObject::DrawObject(Camera* camera, glm::mat4 projection) {
     if (this->isSkybox) {
         glDepthMask(GL_FALSE);
     }
@@ -22,10 +22,10 @@ void ModelObject::DrawObject(glm::mat4 view, glm::mat4 projection) {
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(this->modelMatrix));
     int viewLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "view");
     if (this->isSkybox) {
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(glm::mat4(glm::mat3(view))));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(glm::mat4(glm::mat3(camera->getView()))));
     }
     else {
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera->getView()));
     }
     int projectionLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));

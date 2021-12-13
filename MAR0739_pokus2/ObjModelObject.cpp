@@ -98,7 +98,7 @@ void ObjModelObject::getMeshFromObj(const aiScene* scene) {
     }
 }
 
-void ObjModelObject::DrawObject(glm::mat4 view, glm::mat4 projection) {
+void ObjModelObject::DrawObject(Camera* camera, glm::mat4 projection) {
     if (loop) {
         loopModel();
     }
@@ -109,11 +109,15 @@ void ObjModelObject::DrawObject(glm::mat4 view, glm::mat4 projection) {
     int modelLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(this->modelMatrix));
     int viewLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "view");
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera->getView()));
     int projectionLoc = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "projection");
     glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
-    GLint uniformID = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "textureUnitID");
+    GLint uniformID = glGetUniformLocation(this->shaderProgram->getShaderProgram(), "material.textureUnitID");
     glUniform1i(uniformID, this->textureSpace);
+    for (Light* l : this->lightsToUse)
+        l->setLightValuesToShader(this->shaderProgram->getShaderProgram(), camera);
+        
+
 
     // draw triangles
     glDrawElements(GL_TRIANGLES, this->indices_count, GL_UNSIGNED_INT, NULL); //mode,first,count
@@ -134,4 +138,11 @@ void ObjModelObject::loopModel() {
     this->modelMatrix = glm::scale(this->modelMatrix, glm::vec3(0.015));
     if (t >= 1.0f || t <= 0.0f) delta *= -1;
     t += delta;
+}
+
+void ObjModelObject::addLight(Light* light) {
+    this->lightsToUse.push_back(light);
+}
+void ObjModelObject::setLights(std::vector<Light*> lights) {
+    this->lightsToUse = lights;
 }

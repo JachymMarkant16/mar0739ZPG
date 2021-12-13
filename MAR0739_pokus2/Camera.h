@@ -38,5 +38,7 @@ public:
 	void setInitLook(bool look);
 	bool getInitLook();
 	void lookAround(float x, float y);
+	glm::vec3 getCameraPos();
+	glm::vec3 getCameraFront();
 };
 

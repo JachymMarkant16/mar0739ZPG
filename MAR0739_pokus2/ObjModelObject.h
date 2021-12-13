@@ -23,13 +23,17 @@
 #include "ShaderProgramType.h"
 #include "Object.h"
 #include "TextureController.h"
+#include "Light.h"
+#include <vector>
 class ObjModelObject : public Object
 {
 public:
 	ObjModelObject(const char* filename, ShaderProgramType shaderProgram, std::string textureName, bool loop = false, glm::mat4 defaultMat = glm::mat4(1.0f));
-	void DrawObject(glm::mat4 view, glm::mat4 projection);
-
+	void DrawObject(Camera* camera, glm::mat4 projection);
+	void addLight(Light* light);
+	void setLights(std::vector<Light*> lights);
 private:
+	std::vector<Light*> lightsToUse;
 	void loopModel();
 	bool loop;
 	float t = 0.5f;
