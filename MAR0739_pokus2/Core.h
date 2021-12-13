@@ -19,6 +19,10 @@
 #include  "Object.h"
 #include <iostream>
 #include <vector>
+#include "Light.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
 class Core
 {
 private:
@@ -112,7 +116,17 @@ private:
 			glm::vec3 pos = glm::unProject(screenX, view, projection, viewPort);
 			glm::mat4 treeMat = glm::translate(glm::mat4(1.0f), pos);
 
-			core->addObject(new ObjModelObject("C:\\Skola\\ZPG\\mar_pokus2\\Objects\\tree.obj", ShaderProgramType::ThreeD, "tree", false, treeMat));
+			glm::vec3 lightPos1 = glm::vec3(30.0f, 100.0f, 35.0f);
+			glm::vec3 lightPos2 = glm::vec3(-15.0f, 10.0f, -20.0f);
+			std::vector<Light*> lights;
+			lights.push_back(new Light(glm::vec3(1.0), 2.0f));
+			lights.push_back(new DirectionalLight(glm::vec3(-0.2f, -1.0f, -0.3f), glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.5f, 0.5f, 0.5f)));
+			lights.push_back(new PointLight(lightPos1, glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(300.0f, 300.0f, 300.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.0f, 0.032f, 0));
+			lights.push_back(new PointLight(lightPos2, glm::vec3(0.05f, 0.05f, 0.05f), glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.0f, 0.032f, 1));
+			lights.push_back(new SpotLight(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f), 1.0f, 0.09f, 0.032f, glm::cos(glm::radians(12.5f)), glm::cos(glm::radians(15.0f))));
+			ObjModelObject* treeToAdd = new ObjModelObject("C:\\Skola\\ZPG\\mar_pokus2\\Objects\\tree.obj", ShaderProgramType::ThreeDPhong, "tree", false, treeMat);
+			treeToAdd->setLights(lights);
+			core->addObject(treeToAdd);
 
 			printf("unProject [%f,%f,%f]\n", pos.x, pos.y, pos.z);
 		}

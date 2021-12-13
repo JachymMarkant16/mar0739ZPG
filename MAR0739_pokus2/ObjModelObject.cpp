@@ -135,7 +135,6 @@ void ObjModelObject::loopModel() {
     glm::vec4 parameters = glm::vec4(t * t * t, t * t, t, 1.0f);
     glm::vec3 p = parameters * A * glm::transpose(B);
     this->modelMatrix = glm::translate(glm::mat4(1.0f), p);
-    this->modelMatrix = glm::scale(this->modelMatrix, glm::vec3(0.015));
     if (t >= 1.0f || t <= 0.0f) delta *= -1;
     t += delta;
 }

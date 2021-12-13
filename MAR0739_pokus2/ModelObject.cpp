@@ -1,8 +1,8 @@
 #include "ModelObject.h"
 
-ModelObject::ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, std::string textureName, bool modelIsSkybox) {
+ModelObject::ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, std::string textureName, bool modelIsSkybox, glm::mat4 initPos) {
     this->isSkybox = modelIsSkybox;
-    InitVars(shaderProgram);
+    InitVars(shaderProgram, initPos);
     InitVBO(points, sizeOfPoints);
     InitVAO();
     SetVertexAttribs(shaderProgram);

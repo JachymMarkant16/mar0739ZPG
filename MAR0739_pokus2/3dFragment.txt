@@ -1,7 +1,13 @@
 #version 330
+struct Material {
+    sampler2D textureUnitID;
+    //sampler2D specular;
+    float shininess;
+}; 
+
+uniform Material material;
 out vec4 frag_colour;
-uniform sampler2D textureUnitID;
 in vec2 uvc;
 void main () {
-     frag_colour = texture(textureUnitID, uvc);
+     frag_colour = texture(material.textureUnitID, uvc);
 }

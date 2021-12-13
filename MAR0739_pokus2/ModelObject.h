@@ -32,7 +32,7 @@ private:
 	int textureSpace;
 
 public:
-	ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, std::string textureName, bool isSkybox = false);
+	ModelObject(float* points, int sizeOfPoints, ShaderProgramType shaderProgram, std::string textureName, bool isSkybox = false, glm::mat4 initPos = glm::mat4(1.0f));
 	ModelObject();
 	void DrawObject(Camera* camera, glm::mat4 projection);
 };

@@ -131,6 +131,9 @@
     <ClInclude Include="PointLight.h">
       <Filter>Header Files\Lights</Filter>
     </ClInclude>
+    <ClInclude Include="sphere.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="skyboxVertex.txt">
